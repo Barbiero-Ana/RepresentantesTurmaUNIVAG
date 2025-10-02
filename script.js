@@ -9,7 +9,13 @@ function fazerLogin(event) {
     const password = document.getElementById('password').value;
     const errorDiv = document.getElementById('loginError');
 
+    console.log('Tentando login...');
+    console.log('Username digitado:', username);
+    console.log('Username esperado:', LOGIN_CREDENTIALS.username);
+    console.log('Senha correta?', password === LOGIN_CREDENTIALS.password);
+
     if (username === LOGIN_CREDENTIALS.username && password === LOGIN_CREDENTIALS.password) {
+        console.log('Login bem-sucedido!');
         sessionStorage.setItem('isLoggedIn', 'true');
         isLoggedIn = true;
 
@@ -17,7 +23,10 @@ function fazerLogin(event) {
         document.getElementById('mainContent').style.display = 'block';
 
         errorDiv.textContent = '';
+
+        carregarArquivoAutomatico();
     } else {
+        console.log('Login falhou!');
         // Login falhou
         errorDiv.textContent = ' Usuário ou senha incorretos!';
 
