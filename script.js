@@ -74,13 +74,12 @@ function carregarArquivoAutomatico() {
     try {
         console.log('Carregando dados dos alunos...');
 
-        // Verificar se DADOS_OFUSCADOS existe
-        if (typeof DADOS_OFUSCADOS === 'undefined') {
-            throw new Error('DADOS_OFUSCADOS não está definido');
+        if (typeof DADOS_MAILS === 'undefined') {
+            throw new Error('DADOS_MAILS não está definido');
         }
 
         // Decodificar dados ofuscados
-        const jsonString = atob(DADOS_OFUSCADOS);
+        const jsonString = atob(DADOS_MAILS);
         const dadosAlunos = JSON.parse(jsonString);
 
         console.log(`Total de alunos carregados: ${dadosAlunos.length}`);

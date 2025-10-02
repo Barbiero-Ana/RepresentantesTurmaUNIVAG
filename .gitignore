@@ -1,19 +1,14 @@
-# Arquivo de variáveis de ambiente
 .env
 
-# Dependências
 node_modules/
 package.json
 package-lock.json
 
-# Arquivos do sistema
 .DS_Store
 Thumbs.db
 
-# Planilhas com dados sensíveis (convertidos para JSON ofuscado)
 *.xlsx
 *.xls
 
-# Arquivos de desenvolvimento
 converter.js
 dados-temp.txt
