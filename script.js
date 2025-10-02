@@ -31,6 +31,9 @@ function fazerLogin(event) {
     }
 }
 
+// Expor função globalmente para o HTML
+window.fazerLogin = fazerLogin;
+
 window.addEventListener('DOMContentLoaded', () => {
     if (isLoggedIn) {
         document.getElementById('loginScreen').style.display = 'none';
@@ -264,3 +267,13 @@ document.addEventListener('keydown', (e) => {
         fecharModal({ target: { id: 'modal' } });
     }
 });
+
+// Expor funções globalmente para serem acessíveis pelo HTML
+window.sair = sair;
+window.mostrarCursos = mostrarCursos;
+window.voltarInicial = voltarInicial;
+window.selecionarCurso = selecionarCurso;
+window.voltarCursos = voltarCursos;
+window.abrirModal = abrirModal;
+window.fecharModal = fecharModal;
+window.copiarMensagem = copiarMensagem;
