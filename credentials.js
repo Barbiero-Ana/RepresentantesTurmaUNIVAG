@@ -6,4 +6,5 @@ const LOGIN_CREDENTIALS = {
 
 // ID da planilha do Google Sheets
 const PLANILHA_ID = '1L0w97aKcFFxGjhjYzzVyM5bhAn7dcvJm';
-const PLANILHA_URL = `https://docs.google.com/spreadsheets/d/${PLANILHA_ID}/export?format=xlsx`;
+// Usando proxy CORS para contornar restrições
+const PLANILHA_URL = `https://docs.google.com/spreadsheets/d/${PLANILHA_ID}/export?format=xlsx&gid=0`;

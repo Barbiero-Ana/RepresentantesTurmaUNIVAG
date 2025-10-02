@@ -70,79 +70,36 @@ function sair() {
     location.reload();
 }
 
-async function carregarArquivoAutomatico() {
+function carregarArquivoAutomatico() {
     try {
-        console.log('Carregando planilha do Google Sheets...');
-        const response = await fetch(PLANILHA_URL);
+        console.log('Carregando dados dos alunos...');
 
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+        // Verificar se DADOS_OFUSCADOS existe
+        if (typeof DADOS_OFUSCADOS === 'undefined') {
+            throw new Error('DADOS_OFUSCADOS não está definido');
         }
 
-        const blob = await response.blob();
-        console.log('Planilha carregada, tamanho:', blob.size);
+        // Decodificar dados ofuscados
+        const jsonString = atob(DADOS_OFUSCADOS);
+        const dadosAlunos = JSON.parse(jsonString);
 
-        const file = new File([blob], 'Alunos TI.xlsx', {
-            type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-        });
+        console.log(`Total de alunos carregados: ${dadosAlunos.length}`);
 
-        console.log('Processando dados...');
-        carregarDados(file);
+        // Processar dados
+        todosAlunos = dadosAlunos.map(aluno => ({
+            nome: aluno.nome,
+            sobrenome: aluno.sobrenome,
+            nomeCompleto: `${aluno.nome} ${aluno.sobrenome}`,
+            email: aluno.email,
+            curso: aluno.curso,
+            mensagem: criarMensagem(aluno.nome, aluno.sobrenome, aluno.email)
+        }));
+
+        atualizarContadores();
     } catch (error) {
-        console.error('Erro ao carregar planilha:', error);
-        alert('⚠️ Erro ao carregar planilha do Google Sheets.\n\nVerifique se a planilha está compartilhada publicamente.');
+        console.error('Erro ao carregar dados:', error);
+        alert('⚠️ Erro ao carregar dados dos alunos.\n\n' + error.message);
     }
-}
-
-function carregarDados(file) {
-    const reader = new FileReader();
-    
-    reader.onload = function(e) {
-        try {
-            const data = new Uint8Array(e.target.result);
-            const workbook = XLSX.read(data, { type: 'array' });
-            
-            todosAlunos = [];
-            
-            for (const sheetName of workbook.SheetNames) {
-                const worksheet = workbook.Sheets[sheetName];
-                const jsonData = XLSX.utils.sheet_to_json(worksheet);
-                
-
-                let cursoSigla = '';
-                if (sheetName.includes('TAD')) cursoSigla = 'TAD';
-                else if (sheetName.includes('SIS')) cursoSigla = 'SIS';
-                else if (sheetName.includes('ENS')) cursoSigla = 'ENS';
-                
-                jsonData.forEach(aluno => {
-                    if (aluno.Nome && aluno.Sobrenome && aluno['E-mail']) {
-                        todosAlunos.push({
-                            nome: aluno.Nome,
-                            sobrenome: aluno.Sobrenome,
-                            nomeCompleto: `${aluno.Nome} ${aluno.Sobrenome}`,
-                            email: aluno['E-mail'],
-                            curso: cursoSigla,
-                            mensagem: criarMensagem(aluno.Nome, aluno.Sobrenome, aluno['E-mail'])
-                        });
-                    }
-                });
-            }
-            
-            console.log(`Total de alunos carregados: ${todosAlunos.length}`);
-
-            atualizarContadores();
-            
-        } catch (error) {
-            console.error('Erro ao processar arquivo:', error);
-            alert('❌ Erro ao processar o arquivo. Verifique se é um arquivo Excel válido.');
-        }
-    };
-    
-    reader.onerror = function() {
-        alert('Erro ao ler o arquivo.');
-    };
-    
-    reader.readAsArrayBuffer(file);
 }
 
 function criarMensagem(nome, sobrenome, email) {
