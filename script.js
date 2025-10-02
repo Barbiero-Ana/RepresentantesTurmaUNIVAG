@@ -1,7 +1,4 @@
-const LOGIN_CREDENTIALS = {
-    username: 'Univag@representantes',
-    password: 'Univag@2025'
-};
+import { LOGIN_CREDENTIALS } from './config.js';
 
 let isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
 
