@@ -1,12 +1,11 @@
 .env
 
+project/config.js
 
 node_modules/
 
-
 .DS_Store
 Thumbs.db
-
 
 *.xlsx
 *.xls
