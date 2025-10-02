@@ -72,26 +72,25 @@ function sair() {
 
 async function carregarArquivoAutomatico() {
     try {
-        console.log('Tentando carregar arquivo Excel...');
-        const response = await fetch('E-mail -  Alunos TI.xlsx');
+        console.log('Carregando planilha do Google Sheets...');
+        const response = await fetch(PLANILHA_URL);
 
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
 
         const blob = await response.blob();
-        console.log('Blob carregado, tamanho:', blob.size);
+        console.log('Planilha carregada, tamanho:', blob.size);
 
-        const file = new File([blob], 'E-mail - Alunos TI.xlsx', {
+        const file = new File([blob], 'Alunos TI.xlsx', {
             type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
         });
 
-        console.log('Processando arquivo...');
+        console.log('Processando dados...');
         carregarDados(file);
     } catch (error) {
-        console.error('Erro ao carregar arquivo automático:', error);
-
-        alert('⚠️ Não foi possível carregar o arquivo automaticamente.\n\nIsso pode acontecer se você estiver abrindo o arquivo HTML diretamente.\n\nPor favor, use um servidor local (como Live Server no VS Code) ou recarregue a página.');
+        console.error('Erro ao carregar planilha:', error);
+        alert('⚠️ Erro ao carregar planilha do Google Sheets.\n\nVerifique se a planilha está compartilhada publicamente.');
     }
 }
 

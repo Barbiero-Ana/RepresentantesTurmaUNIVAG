@@ -8,6 +8,6 @@ node_modules/
 .DS_Store
 Thumbs.db
 
-# Planilhas com dados sensíveis
+# Planilhas com dados sensíveis (usar Google Sheets)
 *.xlsx
 *.xls
