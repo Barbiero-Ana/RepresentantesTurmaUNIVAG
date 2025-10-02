@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alunos TI UNIVAG</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="loginScreen" class="login-screen">
+        <div class="login-container">
+            <div class="login-header">
+                <h1>Informações UNIVAG</h1>
+                <p>Sistema de representantes de turma UNIVAG</p>
+            </div>
+            <form id="loginForm" onsubmit="fazerLogin(event)">
+                <div class="input-group">
+                    <label for="username">Usuário</label>
+                    <input type="text" id="username" required autocomplete="username">
+                </div>
+                <div class="input-group">
+                    <label for="password">Senha</label>
+                    <input type="password" id="password" required autocomplete="current-password">
+                </div>
+                <div id="loginError" class="login-error"></div>
+                <button type="submit" class="btn-login">Entrar</button>
+            </form>
+        </div>
+    </div>
+
+
+    <div class="container" id="mainContent" style="display: none;">
+
+        <!-- Botão de Sair -->
+        <button class="btn-sair" onclick="sair()">Sair</button>
+
+        <!-- Card Inicial -->
+        <div id="cardInicial" class="card-inicial">
+            <div class="card-inicial-content">
+                <h1>E-mail Institucional</h1>
+                <button class="btn-acessar" onclick="mostrarCursos()">Acessar</button>
+            </div>
+        </div>
+
+        <div id="cursosSection" class="cursos-section" style="display: none;">
+            <div class="cursos-header-top">
+                <h2>Selecione um Curso</h2>
+                <button class="btn-voltar-inicial" onclick="voltarInicial()">Voltar</button>
+            </div>
+
+            <div class="cursos-grid">
+                <div class="curso-card" onclick="selecionarCurso('TAD')">
+                    <div class="curso-nome">Análise e Desenvolvimento de Sistemas</div>
+                    <div class="curso-sigla">TAD</div>
+                    <span class="curso-total" id="total-TAD">0 alunos</span>
+                </div>
+
+                <div class="curso-card" onclick="selecionarCurso('SIS')">
+                    <div class="curso-nome">Sistemas de Informação</div>
+                    <div class="curso-sigla">SIS</div>
+                    <span class="curso-total" id="total-SIS">0 alunos</span>
+                </div>
+
+                <div class="curso-card" onclick="selecionarCurso('ENS')">
+                    <div class="curso-nome">Engenharia de Software</div>
+                    <div class="curso-sigla">ENS</div>
+                    <span class="curso-total" id="total-ENS">0 alunos</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="alunosSection" class="alunos-section">
+            <div class="alunos-header">
+                <h2 id="cursoAtual">Alunos</h2>
+                <button class="btn-voltar" onclick="voltarCursos()">Voltar</button>
+            </div>
+            
+            <div class="search-box">
+                <input 
+                    type="text" 
+                    id="searchAluno" 
+                    class="search-input" 
+                    placeholder="Buscar aluno..."
+                >
+            </div>
+            
+            <div id="alunosList" class="alunos-list">
+                <div class="loading">Carregando alunos...</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal" class="modal" onclick="fecharModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h3 id="modalNome">Nome do Aluno</h3>
+                <button class="btn-close" onclick="fecharModal()">×</button>
+            </div>
+            
+            <div class="modal-body">
+                <div class="info-item">
+                    <div class="info-label">E-mail Institucional</div>
+                    <div class="info-value" id="modalEmail">email@aluno.univag.edu.br</div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-label">Mensagem para WhatsApp</div>
+                    <div class="mensagem-preview" id="modalMensagem"></div>
+                </div>
+            </div>
+            
+            <div class="modal-footer">
+                <button class="btn-copy-modal" onclick="copiarMensagem()">
+                    Copiar Mensagem
+                </button>
+
+            </div>
+        </div>
+    </div>
+    
+    <div id="toast" class="toast">
+        ✅ Mensagem copiada!
+    </div>
+
+
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.0/package/dist/xlsx.full.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
