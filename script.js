@@ -1,5 +1,3 @@
-import { LOGIN_CREDENTIALS } from './config.js';
-
 let isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
 
 function fazerLogin(event) {
@@ -39,9 +37,6 @@ function fazerLogin(event) {
         }, 500);
     }
 }
-
-// Expor função globalmente para o HTML
-window.fazerLogin = fazerLogin;
 
 window.addEventListener('DOMContentLoaded', () => {
     if (isLoggedIn) {
@@ -276,13 +271,3 @@ document.addEventListener('keydown', (e) => {
         fecharModal({ target: { id: 'modal' } });
     }
 });
-
-// Expor funções globalmente para serem acessíveis pelo HTML
-window.sair = sair;
-window.mostrarCursos = mostrarCursos;
-window.voltarInicial = voltarInicial;
-window.selecionarCurso = selecionarCurso;
-window.voltarCursos = voltarCursos;
-window.abrirModal = abrirModal;
-window.fecharModal = fecharModal;
-window.copiarMensagem = copiarMensagem;
